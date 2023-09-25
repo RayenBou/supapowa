@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ContactController!
+{% endblock %}
+
+{% block body %}
+	<section class="bg-white dark:bg-gray-900">
+		{{ form_start(form, {'attr': {'class': 'space-y-8'}}) }}
+		<div>
+			<label for="{{ form.lastName.vars.id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Last Name</label>
+			{{ form_widget(form.lastName, {'attr': {'class': 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light', 'placeholder': 'Last Name'}}) }}
+		</div>
+		<div>
+			<label for="{{ form.firstName.vars.id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">First Name</label>
+			{{ form_widget(form.firstName, {'attr': {'class': 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light', 'placeholder': 'First Name'}}) }}
+		</div>
+		<div>
+			<label for="{{ form.email.vars.id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Email</label>
+			{{ form_widget(form.email, {'attr': {'class': 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light', 'placeholder': 'name@flowbite.com', 'required': 'required'}}) }}
+		</div>
+		<div>
+			<label for="{{ form.description.vars.id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Description</label>
+			{{ form_widget(form.description, {'attr': {'class': 'block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500', 'placeholder': 'Description'}}) }}
+		</div>
+		<button type="submit" class="py-3 px-5 text-sm font-medium text-center text-white rounded-lg bg-primary-700 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Send</button>
+		{{ form_end(form) }}
+	</section>
+
+{% endblock %}
