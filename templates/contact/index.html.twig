@@ -5,25 +5,34 @@
 
 {% block body %}
 	<section class="bg-white dark:bg-gray-900">
-		{{ form_start(form, {'attr': {'class': 'space-y-8'}}) }}
-		<div>
-			<label for="{{ form.lastName.vars.id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Last Name</label>
-			{{ form_widget(form.lastName, {'attr': {'class': 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light', 'placeholder': 'Last Name'}}) }}
+		<div class="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
+			<h2 class="mb-4 mt-1 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">Contactez-nous</h2>
+			<p class="mb-8 lg:mb-16 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">Vous avez un problème technique ? Vous souhaitez nous envoyer des commentaires sur une fonctionnalité bêta ? Vous avez besoin de détails sur notre plan Business ? Faites-le nous savoir.</p>
+			<div class="space-y-8">
+				{{ form_start(form, {'attr': {'class': 'space-y-8'}}) }}
+				<div class="grid grid-cols-2 gap-4">
+					<div>
+						<label for="{{ form.lastName.vars.id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nom de famille</label>
+						{{ form_widget(form.lastName, {'attr': {'class': 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light', 'placeholder': 'Nom de famille', 'required': 'required'}}) }}
+					</div>
+					<div>
+						<label for="{{ form.firstName.vars.id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Prénom</label>
+						{{ form_widget(form.firstName, {'attr': {'class': 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light', 'placeholder': 'Prénom', 'required': 'required'}}) }}
+					</div>
+				</div>
+				<div>
+					<label for="{{ form.email.vars.id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Votre e-mail</label>
+					{{ form_widget(form.email, {'attr': {'class': 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light', 'placeholder': 'nom@supapowa.com', 'required': 'required'}}) }}
+				</div>
+				<div class="sm:col-span-2">
+					<label for="{{ form.description.vars.id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Votre message</label>
+					{{ form_widget(form.description, {'attr': {'class': 'block p-2.5 w-full text-sm text-gray-900 bg-gray-50  shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500', 'placeholder': 'Message...', 'required': 'required'}}) }}
+				</div>
+				<button type="submit" class="py-3 px-5 text-sm font-medium text-center text-white  bg-primary-700 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Envoyer le message</button>
+				{{ form_end(form) }}
+			</div>
 		</div>
-		<div>
-			<label for="{{ form.firstName.vars.id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">First Name</label>
-			{{ form_widget(form.firstName, {'attr': {'class': 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light', 'placeholder': 'First Name'}}) }}
-		</div>
-		<div>
-			<label for="{{ form.email.vars.id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Email</label>
-			{{ form_widget(form.email, {'attr': {'class': 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light', 'placeholder': 'name@flowbite.com', 'required': 'required'}}) }}
-		</div>
-		<div>
-			<label for="{{ form.description.vars.id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Description</label>
-			{{ form_widget(form.description, {'attr': {'class': 'block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500', 'placeholder': 'Description'}}) }}
-		</div>
-		<button type="submit" class="py-3 px-5 text-sm font-medium text-center text-white rounded-lg bg-primary-700 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Send</button>
-		{{ form_end(form) }}
 	</section>
+
 
 {% endblock %}

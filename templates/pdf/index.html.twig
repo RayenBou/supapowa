@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTDXHTML1.0Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0097)https://www.inv24.com/components/Misc/download/templates/fr/modele_facture_auto_entrepreneur.html -->
+<html xmlns="https://www.w3.org/1999/xhtml"><link type="text/css" rel="stylesheet" id="dark-mode-custom-link"><link type="text/css" rel="stylesheet" id="dark-mode-general-link"><style lang="en" type="text/css" id="dark-mode-custom-style"></style>
+	<style lang="en" type="text/css" id="dark-mode-native-style"></style>
+	<style lang="en" type="text/css" id="dark-mode-native-sheet"></style>
+	<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	</head>
+	<body style="font-family:Tahoma;font-size:12px;color: #333333;background-color:#FFFFFF;" cz-shortcut-listen="true">
+		<table align="center" border="0" cellpadding="0" cellspacing="0" style="height:842px; width:595px;font-size:12px;">
+			<tbody>
+				<tr>
+					<td valign="top">
+						<table width="100%" cellspacing="0" cellpadding="0">
+							<tbody>
+								<tr>
+									<td
+										valign="bottom" width="50%" height="50">{# <div align="left"><img src="{{imageSrc}}" style="width:200px;"></div><br></td> #}
+									</td>
+									<td width="50%">&nbsp;</td>
+								</tr>
+							</tbody>
+						</table>Destinataire:
+						<br><br>
+						<table width="100%" cellspacing="0" cellpadding="0">
+							<tbody>
+								<tr>
+									<td valign="top" width="35%" style="font-size:12px;">
+										<strong>{{firstname}}
+											{{lastname}}</strong><br>
+										{{address}}
+										<br>
+										{{city}}
+										<br>
+										{{postal}}
+										<br>{{mobileNumber}}<br>{{email}}<br>
+
+									</td>
+									<td valign="top" width="35%"></td>
+									<td valign="top" width="30%" style="font-size:12px;">Date de facturation:
+										{{ date ? date|date('d/m/Y') : '' }}<br>
+
+
+									</td>
+
+								</tr>
+							</tbody>
+						</table>
+						<table width="100%" height="100" cellspacing="0" cellpadding="0">
+							<tbody>
+								<tr>
+									<td>
+										<div align="center" style="font-size: 14px;font-weight: bold;">Facture N°
+											{{id}}
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<table width="100%" cellspacing="0" cellpadding="2" border="1" bordercolor="#CCCCCC">
+							<tbody>
+								<tr>
+
+									<td width="35%" bordercolor="#ccc" bgcolor="#f2f2f2" style="font-size:12px;">
+										<strong>Désignation
+										</strong>
+									</td>
+									<td bordercolor="#ccc" bgcolor="#f2f2f2" style="font-size:12px;">
+										<strong>Quantité</strong>
+									</td>
+									<td bordercolor="#ccc" bgcolor="#f2f2f2" style="font-size:12px;">
+										<strong>option</strong>
+									</td>
+									<td bordercolor="#ccc" bgcolor="#f2f2f2" style="font-size:12px;">
+										<strong>Prix</strong>
+									</td>
+									<td bordercolor="#ccc" bgcolor="#f2f2f2" style="font-size:12px;">
+										<strong>Total</strong>
+									</td>
+
+								</tr>
+								<tr style="display:none;">
+									<td colspan="*"></td>
+								</tr>
+								{% for element in products %}
+									<tr>
+
+										<td valign="top" style="font-size:12px;">{{element.product.name}}</td>
+										<td valign="top" style="font-size:12px;">{{element.quantity}}
+										</td>
+										<td valign="top" style="font-size:12px;">None
+											{# {{element.option}} #}
+										</td>
+										<td valign="top" style="font-size:12px;">{{element.product.price}},00
+										</td>
+										<td valign="top" style="font-size:12px;">{{element.product.price * element.quantity}},00
+										</td>
+									</tr>
+								{% endfor %}
+
+							</tbody>
+						</tr>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<table width="100%" cellspacing="0" cellpadding="2" border="0">
+			<tbody>
+				<tr>
+					<td style="font-size:12px;width:50%;">
+						<strong></strong>
+					</td>
+					<td>
+						<table width="100%" cellspacing="0" cellpadding="2" border="0">
+							<tbody>
+
+								<tr>
+									<td align="right" style="font-size:15px;">Total HT</td>
+									<td align="right" style="font-size:15px;">{{subTotal}}
+										€</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td align="right" style="font-size:15px;">Frais de port</td>
+									<td align="right" style="font-size:15px;">{{shippingAmount}}
+										€</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td align="right" style="font-size:20px;">
+										<b>Total TTC</b>
+									</td>
+									<td align="right" style="font-size:20px;">
+										<b>{{total}}
+											€</b>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<table
+			width="100%" height="50">{# <tbody>
+																																																																																																																																																<tr>
+																																																																																																																																																	<td style="font-size:12px;text-align:justify;">TVA non applicable, article 293B du code général des impôts</td>
+																																																																																																																																																</tr>
+																																																																																																																																															</tbody> #}
+		</table>
+		<table width="100%" cellspacing="0" cellpadding="2">
+			<tbody>
+				<tr>
+					<td width="33%" style="border-top:double medium #CCCCCC;font-size:12px;" valign="top">
+						<b></b><br>
+						<br>
+
+					</td>
+					<td width="33%" style="border-top:double medium #CCCCCC; font-size:12px;" align="center" valign="top">
+						Season's Peak ©
+						<br>
+						SIREN : 921761490<br>
+					</td>
+
+					<td valign="top" width="34%" style="border-top:double medium #CCCCCC;font-size:12px;" align="right"><br>
+
+						<br>
+						<br>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DashboardController!
+{% endblock %}
+
+{% block body %}
+	<a class='btn-dark' href="{{path('app_command_index')}}">voir commande</a>
+	<a href="{{path('app_product_list')}}">voir produit</a>
+{% endblock %}

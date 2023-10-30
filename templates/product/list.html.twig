@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product index
+{% endblock %}
+
+
+{% block body %}
+
+	<table class="table-auto mx-auto">
+		<thead>
+			<tr>
+				<th>Nom du produit</th>
+				<th>Prix</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for product in products %}
+				<tr>
+					<td class="px-4 py-2">{{ product.name }}</td>
+					<td class="px-4 py-2">€{{ product.price }}</td>
+					<td class="px-4 py-2">
+						<a href="{{ path('app_product_show', {'id': product.id}) }}">Voir</a>
+						<a href="{{ path('app_product_edit', {'id': product.id}) }}">editer</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="3" class=>Aucun produit</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_product_new') }}">Créer un nouveau produit</a>
+
+
+{% endblock %}

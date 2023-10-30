@@ -10,9 +10,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CartController extends AbstractController
 {
-    #[Route('/cart', name: 'app_cart')]
+    #[Route('/panier', name: 'app_cart')]
     public function index(SessionInterface $session, ProductRepository $productRepository): Response
     {
+
+
+        if (!$session->get('cart', [])) {
+            return $this->redirectToRoute('app_product_index');
+        }
+
+
+
         $total = 0;
         $dataCart = [];
         $cart = $session->get('cart', []);

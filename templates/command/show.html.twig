@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Command
+{% endblock %}
+
+{% block body %}
+	<h1>Command</h1>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ command.id }}</td>
+			</tr>
+			<tr>
+				<th>Email</th>
+				<td>{{ command.email }}</td>
+			</tr>
+			<tr>
+				<th>Total</th>
+				<td>{{ command.total }}</td>
+			</tr>
+			<tr>
+				<th>CreatedAt</th>
+				<td>{{ command.createdAt ? command.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+			</tr>
+			<tr>
+				<th>OrderId</th>
+				<td>{{ command.orderId }}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_command_index') }}">back to list</a>
+
+
+{% endblock %}

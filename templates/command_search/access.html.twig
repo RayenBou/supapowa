@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{parent()}}
+	Votre commande
+{% endblock %}
+
+{% block body %}
+
+	<section class="bg-white dark:bg-gray-900 py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
+		<h2 class="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">Chercher votre commande</h2>
+		<p class="mb-8 lg:mb-16 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">Entrez les informations de commande reçues par e-mail pour trouver votre commande.</p>
+
+		{{ form_start(form, {'attr': {'class': 'bg-white dark:bg-gray-900 p-4  shadow-lg'}}) }}
+
+		<div class="mb-4">
+			{{ form_widget(form.email, {'attr': {'class': 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light', 'placeholder': 'Email', 'required': 'required'}}) }}
+		</div>
+
+		<div class="mb-4">
+			{{ form_widget(form.orderId, {'attr': {'class': 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light', 'placeholder': 'Numéro de commande', 'required': 'required'}}) }}
+		</div>
+
+		<button type="submit" class="w-full py-3 px-5 text-sm font-medium text-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Chercher</button>
+
+		{{ form_end(form) }}
+	</section>
+
+
+{% endblock %}

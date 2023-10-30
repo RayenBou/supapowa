@@ -25,13 +25,13 @@ class ContactController extends AbstractController
 
             $email = (new TemplatedEmail())
                 ->from($formData['email'])
-                ->to('info@location-voiture.fr')
+                ->to('contact@supapowa.fr')
                 ->subject($formData['firstName'] . ' ' . $formData['lastName'] . '- Mail Site Web')
                 ->text($formData['description']);
             $mailer->send($email);
 
 
-            $this->addFlash('success', 'Email has been sent successfully');
+            $this->addFlash('success', "Nous avons bien reçu votre e-mail ! Nous vous répondrons d'ici peu.");
             return $this->redirectToRoute('app_home');
         }
 

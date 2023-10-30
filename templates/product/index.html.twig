@@ -4,33 +4,27 @@
 {% endblock %}
 
 {% block body %}
-	<h1 class="text-2xl font-semibold mb-4">Product index</h1>
+	<h1 class="mt-12 mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">Produits</h1>
+	<p class="mb-8 lg:mb-16 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">Découvrez l'Éclat Moderne : Illuminez Votre Intérieur avec Nos Luminaires LED de Qualité Supérieure !</p>
 
-	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-5">
 		{% for product in products %}
-			<div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-				<a href="#">
+			<div class="w-full max-w-sm bg-white border border-gray-300 shadow-md dark:bg-gray-800 dark:border-gray-700">
+				<a href="{{ path('app_product_show', {'id': product.id}) }}">
 					{% if product.photo|length > 0 %}
 						{% set firstImage = product.photo|first %}
-						<img src="{{ asset('photo/product/' ~ firstImage.reference) }}" alt="{{ product.name }}" class=""/>
-
+						<img src="{{ asset('photo/product/' ~ firstImage.reference) }}" alt="{{ product.name }}" class="w-full h-64 object-cover  hover:scale-110 transition-transform"/>
 					{% endif %}
-
 				</a>
 
-				<div class="px-5 pb-5">
-					<a href="#">
-						<h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{{ product.name }}</h5>
-					</a>
-					<div
-						class="flex items-center mt-2.5 mb-5">
-						{# Rating stars SVGs here #}
-						<span class="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">5.0</span>
-					</div>
+				<div class="p-6">
+					<a href="{{ path('app_product_show', {'id': product.id}) }}" class="text-xl  text-gray-900 dark:text-white hover:text-blue-500">{{ product.name }}</a>
+					{# <div class="flex items-center mt-2 mb-4">
+																																									<span class="text-xs font-semibold text-blue-800 bg-blue-200  px-2.5 py-1 dark:text-blue-300 dark:bg-blue-700"></span>
+																																								</div> #}
 					<div class="flex items-center justify-between">
-						<span class="text-3xl font-bold text-gray-900 dark:text-white">€{{ product.price }}</span>
-						<a href="{{path('app_product_show',{'id': product.id})}}" class="text-white bg-amber-300 hover:bg-amber-500 focus:ring-4 focus:outline-none focus:ring-amber-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-amber-300 dark:hover:bg-amber-600 dark:focus:ring-amber-500">Voir</a>
-						<a href='{{path('app_cart_add',{'id':product.id})}}' class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Ajouter au panier</a>
+						<span class="text-xl font-bold text-gray-900 dark:text-white">€{{ product.price }}</span>
+						<a href="{{ path('app_cart_add', {'id': product.id}) }}" class="flex justify-center px-4 py-2 text-blue-600 border border-blue-300  dark:border-gray-600 dark:text-gray-400 hover:bg-blue-700 hover:text-gray-100 dark:hover:bg-gray-800 dark:hover:border-gray-900">Ajouter au panier</a>
 					</div>
 				</div>
 			</div>
@@ -40,5 +34,5 @@
 	</div>
 
 
-	<a href="{{ path('app_product_new') }}" class="mt-4 block text-blue-700 hover:underline">Create new</a>
+	<a href="{{ path('app_product_new') }}" class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium  text-sm px-4 py-2 text-center dark:bg-blue-700 dark:hover:bg-blue-800 dark:focus:ring-blue-500">Create new</a>
 {% endblock %}

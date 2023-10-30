@@ -1,20 +1,113 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PaymentController!{% endblock %}
+{% block title %}Hello PaymentController!
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/rayen/Desktop/PROJET-DEV/symfony/autre projet/supapowa/src/Controller/PaymentController.php'|file_link(0) }}">src/Controller/PaymentController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/rayen/Desktop/PROJET-DEV/symfony/autre projet/supapowa/templates/payment/index.html.twig'|file_link(0) }}">templates/payment/index.html.twig</a></code></li>
-    </ul>
-</div>
+	<div class="min-h-screen flex flex-col md:flex-row bg-gray-100">
+		<div class="w-full md:w-1/2 p-6 bg-gray-200 order-2 md:order-1">
+			<h1 class="text-2xl font-semibold text-gray-800 mb-6">Panier</h1>
+			<div class="">
+				{% for data in dataCart %}
+					<div class="justify-between mb-6  bg-white p-6 shadow-md sm:flex sm:justify-start">
+						<div class="sm:ml-4 sm:flex sm:w-full sm:justify-between">
+							<div class="mt-5 sm:mt-0">
+								<div>
+									<div>
+										<span class="text-lg font-bold text-gray-900">{{ data.product.name }}</span>
+										<a href="{{path('app_product_show',{'id': data.product.id})}}" class="text-white font-medium px-2 py-1 bg-blue-500 hover:bg-blue-600 ">Voir</a>
+									</div>
+									{{ data.product.price }}€ x
+									{{ data.quantity }}
+								</div>
+								<p class="mt-1 text-xs text-gray-700">{{ data.product.description }}</p>
+							</div>
+							<div class="flex items-center space-x-4">
+
+								<div>
+									<p class="text-xl">{{ data.product.price * data.quantity}}€
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+				<div class="justify-between mb-6  bg-gray-200 p-6 shadow-md sm:flex sm:justify-start">
+					<div class="sm:ml-4 sm:flex sm:w-full sm:justify-between">
+						<div class="mt-5 sm:mt-0">
+							<div>
+								<div>
+									<span class="text-lg font-bold text-gray-900">Frais de livraison</span>
+
+								</div>
+
+							</div>
+							{# <p class="mt-1 text-xs text-gray-700">{{ data.product.description }}</p> #}
+						</div>
+						<div class="flex items-center space-x-4">
+
+							<div>
+								<p class="text-l">9.99 €
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="w-full md:w-1/2 p-6 bg-white order-1 md:order-2">
+			<h1 class="text-2xl font-semibold text-gray-800 mb-6">Formulaire de Commande</h1>
+			{{form_start(form)}}
+			<div class="mb-6">
+				<label class="block text-gray-700">Email</label>
+				{{ form_widget(form.email, {'attr': {'class': 'block w-full mt-1 border-gray-300  shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'}}) }}
+			</div>
+			<div class="mb-6">
+				<label class="block text-gray-700">Téléphone</label>
+				{{ form_widget(form.phone, {'attr': {'class': 'block w-full mt-1 border-gray-300  shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'}}) }}
+			</div>
+			<div class="mb-6 grid grid-cols-2 gap-4">
+				<div>
+					<label class="block text-gray-700">Nom</label>
+					{{ form_widget(form.lastName, {'attr': {'class': 'block w-full mt-1 border-gray-300  shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'}}) }}
+				</div>
+				<div>
+					<label class="block text-gray-700">Prénom</label>
+					{{ form_widget(form.firstName, {'attr': {'class': 'block w-full mt-1 border-gray-300  shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'}}) }}
+				</div>
+			</div>
+			<div class="mb-6">
+				<label class="block text-gray-700">Adresse</label>
+				{{ form_widget(form.address, {'attr': {'class': 'block w-full mt-1 border-gray-300  shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'}}) }}
+			</div>
+			<div class="mb-6">
+				<label class="block text-gray-700">Complement d'adresse</label>
+				{{ form_widget(form.complement, {'attr': {'class': 'block w-full mt-1 border-gray-300  shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'}}) }}
+			</div>
+			<div class="mb-6">
+				<label class="block text-gray-700">Ville</label>
+				{{ form_widget(form.city, {'attr': {'class': 'block w-full mt-1 border-gray-300  shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'}}) }}
+			</div>
+			<div class="mb-6 grid grid-cols-2 gap-4">
+				<div class="mb-6">
+					<label class="block text-gray-700">Code Postal</label>
+					{{ form_widget(form.postalCode, {'attr': {'class': 'block w-full mt-1 border-gray-300  shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'}}) }}
+				</div>
+				<div class="mb-6">
+					<label class="block text-gray-700">Pays</label>
+					{{ form_widget(form.country, {'attr': {'class': 'block w-full mt-1 border-gray-300  shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'}}) }}
+				</div>
+			</div>
+			<div class="mb-6">
+				<button class="w-full h-10 font-medium px-5 text-white bg-blue-500  hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:ring-opacity-50">Payer</button>
+			</div>
+			{{form_end(form)}}
+		</div>
+
+	</div>
+
+
 {% endblock %}

@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Command index
+{% endblock %}
+
+{% block body %}
+	<!-- Entête de la page -->
+	<div class="w-full flex justify-between items-start mt-12 rounded px-4">
+		<div>
+			<p class="text-black font-bold text-2xl">Commande #{{ command.orderId }}</p>
+			<a href="{{ path('app_pdf', {'id':command.id}) }}" class='text-sm font-semibold text-blue-500'>Voir la facture →</a>
+		</div>
+
+		<p class="text-gray-600 text-sm">
+			Commande passée le
+			<span>{{ command.createdAt ? command.createdAt|date('d/m/Y') : '' }}</span>
+			{# {{ command.orderDate }} #}
+		</p>
+	</div>
+
+	<!-- Cards de produits -->
+	<div class="flex-grow w-full flex flex-col space-y-4 rounded p-4">
+		{% for item in commandProduct %}
+			<div class="w-full bg-white rounded-lg shadow-lg p-4 border border-gray-200 flex ">
+				<div class="w-36 h-36 mr-4">
+					<img src="{{ asset('photo/product/' ~ item.product.photo[0].reference) }}" alt="Product Image" class="w-full h-full rounded-lg">
+				</div>
+				<div>
+					<h2 class="text-l font-semibold text-gray-800">{{ item.product.name }}</h2>
+					<p class="text-gray-600  font-semibold">€{{ item.product.price }}
+						<span class='text-xs'>X
+							{{ item.quantity }}</span>
+					</p>
+					<p class="text-gray-600 text-sm">{{ item.product.description }}</p>
+
+
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+
+	<!-- Card de résumé de la commande -->
+	<div class=" bg-gray-100 rounded-lg shadow-lg p-8 mt-4 mx-4 flex justify-around">
+		<div class='flex-1 mr-8'>
+			<p class='mb-2 text-sm font-semibold'>Adresse de facturation</p>
+			<p class="text-gray-600 text-sm">{{ command.lastName }}
+				{{ command.firstName }}
+			</p>
+			<p class="text-gray-600 text-sm">{{ command.address }}
+			</p>
+			<p class="text-gray-600 text-sm">{{ command.postalCode }},
+				{{ command.city }}
+			</p>
+			<p class="text-gray-600 text-sm">
+				{{ command.Country }}
+			</p>
+			<p class="text-gray-600 text-sm">
+				{{ command.adressComplement }}
+			</p>
+		</div>
+		<div class='flex-1'>
+			<div class='flex justify-between'>
+				<p class='text-sm'>Sous-total</p>
+				<p class="text-sm text-gray-600 font-semibold">€{{ command.subTotal }}</p>
+			</div>
+			<hr class="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700">
+			<div class='flex justify-between'>
+				<p class='text-sm '>Frais de livraison</p>
+				<p class=" text-sm text-gray-600 font-semibold">€{{ command.shippingAmount }}
+				</p>
+			</div>
+			<hr class="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700">
+			<div class='flex justify-between'>
+				<p class='text-sm font-semibold'>Total de la commande</p>
+				<p class="text-sm font-semibold text-blue-500 mt-2">€{{ command.total }}
+				</p>
+			</div>
+
+
+		</div>
+
+	</div>
+
+{% endblock %}

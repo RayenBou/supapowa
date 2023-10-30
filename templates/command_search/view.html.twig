@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	{{parent()}}
+	Votre commande
+
+{% endblock %}
+
+{% block body %}
+
+
+	{{command.orderId}}
+
+	{# {{command.createdAt|format('Y-m-d')}} #}
+
+	{# {% for product in command.product %}
+						{{product.id}}
+						{{product.name}}
+						{{product.price}}
+				
+					{% endfor %} #}
+{{command.total}}{% endblock %}

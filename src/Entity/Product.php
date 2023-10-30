@@ -31,13 +31,26 @@ class Product
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: Photo::class)]
     private Collection $photo;
 
-    #[ORM\ManyToOne(inversedBy: 'product')]
-    private ?Order $command = null;
+    #[ORM\Column]
+    private ?bool $inStock = null;
+
+    #[ORM\Column]
+    private ?bool $activated = null;
+
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: CommandProduct::class)]
+    private Collection $commandProducts;
 
     public function __construct()
     {
-        $this->photo = new ArrayCollection();
+        $this->commandProducts = new ArrayCollection();
     }
+
+
+
+
+
+
+
 
 
 
@@ -124,14 +137,58 @@ class Product
         return $this;
     }
 
-    public function getCommand(): ?Order
+
+
+    public function isInStock(): ?bool
     {
-        return $this->command;
+        return $this->inStock;
     }
 
-    public function setCommand(?Order $command): static
+    public function setInStock(bool $inStock): static
     {
-        $this->command = $command;
+        $this->inStock = $inStock;
+
+        return $this;
+    }
+
+    public function isActivated(): ?bool
+    {
+        return $this->activated;
+    }
+
+    public function setActivated(bool $activated): static
+    {
+        $this->activated = $activated;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CommandProduct>
+     */
+    public function getCommandProducts(): Collection
+    {
+        return $this->commandProducts;
+    }
+
+    public function addCommandProduct(CommandProduct $commandProduct): static
+    {
+        if (!$this->commandProducts->contains($commandProduct)) {
+            $this->commandProducts->add($commandProduct);
+            $commandProduct->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommandProduct(CommandProduct $commandProduct): static
+    {
+        if ($this->commandProducts->removeElement($commandProduct)) {
+            // set the owning side to null (unless already changed)
+            if ($commandProduct->getProduct() === $this) {
+                $commandProduct->setProduct(null);
+            }
+        }
 
         return $this;
     }

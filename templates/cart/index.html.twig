@@ -5,16 +5,16 @@
 
 {% block body %}
 	<div class="h-screen bg-gray-100 pt-20">
-		<h1 class="mb-10 text-center text-2xl font-bold">Votre Panier</h1>
+		<h1 class="  mb-8 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">Votre Panier</h1>
 		<div class="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
 
-			<div class="rounded-lg md:w-2/3">
+			<div class=" md:w-2/3">
 				{% for data in dataCart %}
-					<div class="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
+					<div class="justify-between mb-6  bg-white p-6 shadow-md sm:flex sm:justify-start">
 
 						{% if data.product.photo|length > 0 %}
 							{% set firstImage = data.product.photo|first %}
-							<img src="{{ asset('photo/product/' ~ firstImage.reference) }}" alt="{{ data.product.name }}" class="w-full rounded-lg sm:w-40"/>
+							<img src="{{ asset('photo/product/' ~ firstImage.reference) }}" alt="{{ data.product.name }}" class="w-full  sm:w-40"/>
 
 						{% endif %}
 
@@ -25,16 +25,17 @@
 							</div>
 							<div class="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
 								<div class="flex items-center border-gray-100">
-									<a href="{{ path('app_cart_remove', {'id': data.product.id}) }}" class="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50">
+									<a href="{{ path('app_cart_remove', {'id': data.product.id}) }}" class="cursor-pointer bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50">
 										-
 									</a>
-									<input class="h-8 w-8 border bg-white text-center text-xs outline-none" type="number" value="{{ data.quantity }}" min="1"/>
-									<a href="{{ path('app_cart_add', {'id': data.product.id}) }}" class="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50">
+									{# <input class="h-8 w-8 border bg-white text-center text-xs outline-none" type="number" value="{{ data.quantity }}" min="1"/> #}
+									<div class="h-8 w-8 p-1 border bg-white text-center  text-s outline-none">{{ data.quantity }}</div>
+									<a href="{{ path('app_cart_add', {'id': data.product.id}) }}" class="cursor-pointer  bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50">
 										+
 									</a>
 								</div>
 								<div class="flex items-center space-x-4">
-									<p class="text-sm">{{ data.product.price }}
+									<p class="text-s">{{ data.product.price }}
 										€</p>
 									<a href="{{ path('app_cart_delete', {'id': data.product.id}) }}" class="cursor-pointer h-5 w-5 text-red-500 hover:text-red-700">
 										<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -49,7 +50,7 @@
 			</div>
 
 			<!-- Sub total -->
-			<div class="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3">
+			<div class="mt-6 h-full  border bg-white p-6 shadow-md md:mt-0 md:w-1/3">
 				<div class="mb-2 flex justify-between">
 					<p class="text-gray-700">Sous-Total</p>
 					<p class="text-gray-700">€
@@ -64,11 +65,11 @@
 					<p class="text-lg font-bold">Total</p>
 					<div class="">
 						<p class="mb-1 text-lg font-bold">€
-							{{ total }}</p>
+							{{ total + 9.99 }}</p>
 						<p class="text-sm text-gray-700">Taxes incluses</p>
 					</div>
 				</div>
-				<a href="{{ path('app_prepayment') }}" class="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600 block text-center no-underline">
+				<a href="{{ path('app_prepayment') }}" class="mt-6 w-full  bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600 block text-center no-underline">
 					Paiement
 				</a>
 

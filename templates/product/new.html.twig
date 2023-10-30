@@ -1,11 +1,55 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Product{% endblock %}
+{% block title %}New Product
+{% endblock %}
 
 {% block body %}
-    <h1>Create new Product</h1>
+	<div class="bg-white shadow-lg  overflow-hidden md:w-1/2 lg:w-2/3 xl:w-1/2 flex flex-col m-auto">
+		<div class="p-6">
+			<h2 class="text-2xl font-bold mb-4 dark:text-gray-400 text-center">Formulaire Creation Produit</h2>
 
-    {{ include('product/_form.html.twig') }}
 
-    <a href="{{ path('app_product_index') }}">back to list</a>
+			{{ form_start(form) }}
+
+			<div class="mb-4">
+
+				{{ form_row(form.name, {'attr': {'class': 'w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-gray-100 dark:bg-gray-900 dark:text-gray-400 focus:outline-none focus:ring focus:border-blue-500 '}}) }}
+			</div>
+
+			<div class="mb-4">
+
+				{{ form_row(form.description, {'attr': {'class': 'w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-gray-100 dark:bg-gray-900 dark:text-gray-400 focus:outline-none focus:ring focus:border-blue-500 '}}) }}
+			</div>
+
+			<div class="mb-4">
+
+				{{ form_row(form.price, {'attr': {'class': 'w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-gray-100 dark:bg-gray-900 dark:text-gray-400 focus:outline-none focus:ring focus:border-blue-500 '}}) }}
+			</div>
+
+			<div class="mb-4">
+
+				{{ form_row(form.category, {'attr': {'class': 'w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-gray-100 dark:bg-gray-900 dark:text-gray-400 focus:outline-none focus:ring focus:border-blue-500 '}}) }}
+			</div>
+
+			<div class="mb-4">
+
+				{{ form_row(form.activated, {'attr': {'class': 'w-full px-4 py-2 mt-2 text-gray-700 bg-gray-100 dark:bg-gray-900 dark:text-gray-400 focus:outline-none focus:ring focus:border-blue-500 '}}) }}
+			</div>
+
+			<div class="mb-4">
+
+				{{ form_row(form.inStock, {'attr': {'class': 'w-full px-4 py-2 mt-2 text-gray-700 bg-gray-100 dark:bg-gray-900 dark:text-gray-400 focus:outline-none focus:ring focus:border-blue-500 '}}) }}
+			</div>
+
+			<div class="mb-4">
+
+				{{ form_row(form.photo, {'attr': {'class': 'w-full mt-2 text-gray-700 bg-gray-100 dark:bg-gray-900 dark:text-gray-400 focus:outline-none focus:ring focus:border-blue-500 '}}) }}
+			</div>
+
+			<button class="btn bg-blue-500 text-gray-100 hover:bg-blue-600 dark:text-gray-200 dark:hover:bg-blue-700 p-3">Enregistrer</button>
+
+			{{ form_end(form) }}
+
+		</div>
+	</div>
 {% endblock %}

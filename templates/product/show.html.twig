@@ -2,114 +2,192 @@
 
 {% block title %}Product
 {% endblock %}
-{% block javascripts %}
+{% block stylesheets %}
+
+
 	{{parent()}}
+	<style>
+		.height-max {
+			max-height: 90vh;
+		}
+		/* Styles for the modal container */
+		.modal {
+			display: none;
+			position: fixed;
+			z-index: 1;
+			left: 0;
+			margin: 0;
+			padding: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.7);
+		}
 
-	<script>
-		// Fonction pour attendre que le DOM soit complètement chargé
-document.addEventListener('DOMContentLoaded', function () {
-const modal = document.getElementById('imageModal');
-const modalImage = document.getElementById('modalImage');
-const closeModal = document.getElementById('closeModal');
+		/* Styles for the modal content */
+		.modal-content {
+			;
 
-const productImages = document.querySelectorAll('[data-image]');
+			/* background-color: #fefefe; */
+			/* margin: 15% auto; */
+			/* padding: 20px; */
+			/* border: 1px solid #888; */
+			/* width: 80%; */
+			/* max-width: 400px; */
+			/* text-align: center; */
+		}
+		.modal-img {
+			padding-top: 2rem;
+			margin-left: auto;
+			margin-right: auto;
+			height: 95vh;
+			/* border-radius: 20px; */
+		}
+		/* Styles for the close button */
+		.close {
+			color: white;
+			float: right;
+			font-size: 35px;
+			font-weight: bold;
+			cursor: pointer;
+			padding-right: 1rem;
+		}
 
-productImages.forEach((image) => {
-image.addEventListener('click', () => {
-const imageURL = image.getAttribute('data-image');
-modalImage.src = imageURL;
-modal.classList.remove('hidden');
-});
-});
-
-closeModal.addEventListener('click', () => {
-modal.classList.add('hidden');
-});
-});
-	</script>
-
+		.close:hover,
+		.close:focus {
+			color: black;
+			text-decoration: none;
+			cursor: pointer;
+		}
+	</style>
 
 {% endblock %}
 
 {% block body %}
-
-	<div class="bg-gray-100 flex items-center justify-center h-screen">
-		<div class=" shadow-lg rounded-lg overflow-hidden h-full w-full  flex">
-
+	<div class="flex flex-col md:flex-row items-center justify-center">
+		<div
+			class=" overflow-hidden w-full md:flex">
+			<!-- Section des images -->
 			<div
-				class="bg-white shadow-lg rounded-lg overflow-hidden w-full md:w-3/4 lg:w-2/3 xl:w-1/2 flex">
-				<!-- J'ai ajouté la classe w-full pour occuper toute la largeur -->
-
-				<div
-					class="w-full h-full flex flex-col">
-					<!-- Grande image -->
-					<div class="w-full h-3/4 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
-						<img src="{{ asset('photo/product/' ~ product.photo[0].reference) }}" alt="Product Image" data-image="{{ asset('photo/product/' ~ product.photo[0].reference) }}" class="cursor-pointer">
-					</div>
-
-					<!-- Petites images carrées -->
-					<div class="flex space-x-4">
-						{% for pic in product.photo|slice(1) %}
-							<div class="w-1/4 h-1/4 rounded-lg bg-gray-100 flex items-center justify-center">
-								<img src="{{ asset('photo/product/' ~ pic.reference) }}" alt="Product Image" data-image="{{ asset('photo/product/' ~ pic.reference) }}" class="cursor-pointer">
-							</div>
-						{% endfor %}
+				class=" overflow-hidden md:w-1/2 lg:w-2/3 xl:w-1/2">
+				<!-- Grande image (réduite) -->
+				<div class="h-3/4 flex items-center justify-center pb-3">
+					<button class="open-modal-btn" data-modal-id="modal1">
+						<img id="largeImage" src="{{ asset('photo/product/' ~ product.photo[0].reference) }}" alt="Product Image" class=" h-96">
+					</button>
+				</div>
+				<div id="modal1" class="modal">
+					<div class="modal-content">
+						<span class="close">&times;</span>
+						<img id="largeImage" src="{{ asset('photo/product/' ~ product.photo[0].reference) }}" alt="Product Image" class="modal-img">
 					</div>
 				</div>
-			</div>
-
-			<!-- Informations sur le produit et bouton "Ajouter au panier" (à droite) -->
-			<div class="w-1/2 p-6">
-				<h2 class="text-2xl font-semibold text-gray-800 mb-2">{{ product.name}}</h2>
-				<p class="text-gray-500 text-sm">By
-					<a href="#" class="text-indigo-600 hover:underline">ABC Company</a>
-				</p>
-
-				<div class="flex items-center space-x-4 my-4">
-					<div>
-						<div class="rounded-lg bg-gray-100 flex py-2 px-3">
-							<span class="text-indigo-400 mr-1 mt-1">$</span>
-							<span class="font-bold text-indigo-600 text-3xl">25</span>
+				<!-- Petites images carrées -->
+				<div class="flex flex-row items-center h-1/4 space-x-4 pl-1">
+					{% for pic in product.photo|slice(1) %}
+						<div class="w-1/4 h-1/4  flex items-center justify-center">
+							<button class="open-modal-btn" data-modal-id="{{pic.reference}}">
+								<img src="{{ asset('photo/product/' ~ pic.reference) }}" alt="Product Image" class=''>
+							</button>
 						</div>
-					</div>
-					<div class="flex-1">
-						<p class="text-green-500 text-xl font-semibold">Save 12%</p>
-						<p class="text-gray-400 text-sm">Inclusive of all Taxes.</p>
-					</div>
-				</div>
-
-				<p class="text-gray-500">{{ product.description }}</p>
-
-				<div class="flex py-4 space-x-4">
-					<div class="relative">
-						<div class="text-center left-0 pt-2 right-0 absolute block text-xs uppercase text-gray-400 tracking-wide font-semibold">Qty</div>
-						<select class="cursor-pointer appearance-none rounded-xl border border-gray-200 pl-4 pr-8 h-14 flex items-end pb-1">
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
-						</select>
-
-						<svg class="w-5 h-5 text-gray-400 absolute right-0 bottom-0 mb-2 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/>
-						</svg>
-					</div>
-
-					<a type="button" href='{{path('app_cart_add',{'id':product.id})}}' class="h-14 px-6 py-2 font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white">
-						Ajouter au panier
-					</a>
+						<div id="{{pic.reference}}" class="modal">
+							<div class="modal-content">
+								<span class="close">&times;</span>
+								<img src="{{ asset('photo/product/' ~ pic.reference) }}" alt="Product Image" class='modal-small-img '>
+							</div>
+						</div>
+					{% endfor %}
 				</div>
 			</div>
+			<div class="w-full md:w-1/2 mt-5 px-4 md:px-6 lg:pl-20">
+				<div class="mb-8">
+					<span class="text-lg font-medium text-rose-500 dark:text-rose-200">New</span>
+					<h2 class="max-w-xl mt-2 mb-6 text-2xl font-bold dark:text-gray-400 md:text-4xl">
+						{{ product.name }}
+					</h2>
+					<p class="max-w-md mb-8 text-gray-700 dark:text-gray-400">
+						{{ product.description }}
+					</p>
+					<p class="inline-block mb-8 text-4xl font-bold text-gray-700 dark:text-gray-400">
+						<span>€{{ product.price }}</span>
+					</p>
+					<p class="text-green-600 dark:text-green-300">{{ product.inStock ? "en stock" : "en réapprovisionnement" }}</p>
+				</div>
+
+				<div class="w-32 mb-8">
+					<label for="" class="w-full text-xl font-semibold text-gray-700 dark:text-gray-400">Quantity</label>
+					<div class="relative flex flex-row w-full h-10 mt-4 bg-transparent ">
+						<button class="w-20 h-full text-gray-600 bg-gray-300  outline-none cursor-pointer dark:hover:bg-gray-700 dark:text-gray-400 hover:text-gray-700 dark:bg-gray-900 hover:bg-gray-400">
+							<span class="m-auto text-2xl font-thin">-</span>
+						</button>
+						<input type="number" class="flex items-center w-full font-semibold text-center text-gray-700 placeholder-gray-700 bg-gray-300 outline-none dark:text-gray-400 dark:placeholder-gray-400 dark:bg-gray-900 focus:outline-none text-md hover:text-black" placeholder="1">
+						<button class="w-20 h-full text-gray-600 bg-gray-300 outline-none cursor-pointer dark:hover-bg-gray-700 dark:text-gray-400 dark:bg-gray-900 hover:text-gray-700 hover:bg-gray-400">
+							<span class="m-auto text-2xl font-thin">+</span>
+						</button>
+					</div>
+				</div>
+
+				<div class="flex flex-wrap items-center -mx-4">
+					{% if product.inStock %}
+						<div class="w-full px-4 mb-4 lg:w-1/2 lg:mb-0">
+							<a href='{{ path('app_cart_add', {'id': product.id}) }}' class="flex items-center justify-center w-full p-4 text-blue-500 border border-blue-500  dark:text-gray-200 dark:border-blue-600 hover:bg-blue-600 hover:border-blue-600 hover:text-gray-100 dark:bg-blue-600 dark:hover:bg-blue-700 dark:hover:border-blue-700 dark:hover:text-gray-300">
+								Ajouter au Panier
+							</a>
+						</div>
+					{% else %}
+						<div class="w-full px-4 mb-4 lg:w-1/2 lg:mb-0">
+							<button class="flex items-center justify-center w-full p-4 text-red-500 border border-red-500  dark:text-gray-200 dark:border-red-600 bg-red-100 dark:bg-red-900">
+								Épuisé
+							</button>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+
+
 		</div>
 	</div>
 
+	<script>
+		// Get all elements with the class "open-modal-btn"
+const modalBtns = document.querySelectorAll(".open-modal-btn");
 
-	<a href="{{ path('app_product_index') }}">back to list</a>
+// Add a click event listener to each button
+modalBtns.forEach((btn) => {
+btn.addEventListener("click", () => { // Get the data-modal-id attribute from the button
+const modalId = btn.getAttribute("data-modal-id");
 
-	<a href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
+// Get the modal element by its ID
+const modal = document.getElementById(modalId);
 
-	{{ include('product/_delete_form.html.twig') }}
+// Open the modal
+modal.style.display = "block";
+});
+});
+
+// Get all elements with the class "modal"
+const modals = document.querySelectorAll(".modal");
+
+// Add a click event listener to each close button
+modals.forEach((modal) => {
+const closeBtn = modal.querySelector(".close");
+
+closeBtn.addEventListener("click", () => { // Close the modal
+modal.style.display = "none";
+});
+
+// Close the modal when clicking outside the modal content
+window.addEventListener("click", (event) => {
+if (event.target === modal) {
+modal.style.display = "none";
+}
+});
+});
+	</script>
+	{# 
+																																																																																																													<a href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
+																																																																																																												
+																																																																																																													{{ include('product/_delete_form.html.twig') }} #}
 
 
 {% endblock %}
